@@ -1,0 +1,377 @@
+Summary of commands used on Born2BeRoot Project
+
+APPArmor
+
+
+
+
+
+define profiles and limites that applications can reach and do on the system, limiting the damage a offensive application can do on the system
+
+Create New Group
+
+
+
+
+
+sudo groupadd group_name
+
+Check Groups
+
+  Check if group has been created and list users on group
+
+
+
+
+
+getent group group_name
+
+Sudo
+
+
+
+
+
+assign user to sudo group
+
+
+
+
+
+as root: usermod -aG sudo userName
+
+Check all local users
+
+
+
+
+
+cut -d: -f1 /etc/passwd
+
+#OR
+
+
+
+
+
+cd into /etc that is on ~/../../
+
+
+
+nano passwd
+
+Add New User
+
+
+
+
+
+sudo adduser new_user
+
+Assign User To Group
+
+
+
+
+
+sudo usermod -aG groupName userName
+
+List User Groups
+
+
+
+
+
+while logged as the desired user
+
+
+
+
+
+groups
+
+
+
+see any user groups
+
+
+
+
+
+groups username
+
+Remove user from Group
+
+
+
+
+
+sudo deluser username groupname
+
+Delete Group
+
+
+
+
+
+sudo groupdel groupName
+
+Check Passwd Rules
+
+
+
+
+
+chage -l userName
+
+Hostname
+
+
+
+
+
+to change the system hostname
+
+
+
+
+
+sudo hostnamectl set-hostname new_name
+
+Sudo Log
+
+
+
+
+
+create a sudo.log file unde /var/log  from  ~/../../
+
+
+
+sudo nano /etc/sudoers  from ~/../../ OR sudo visudo
+
+
+
+add the log file path under Defaults
+
+
+
+
+
+Defaults  logfile=”/var/log/sudo.log
+
+Crontab - timer
+
+
+
+
+
+installed: apt install net-tools
+
+
+
+create the script under: /usr/local/bin/monitoring.sh
+
+
+
+sudo visudo, set the permission to run the script with no password
+
+
+
+
+
+username       ALL(ALL) NOPASSWD:  /usr/local/bin/monitoring.sh
+
+
+
+opens the crontab config file
+
+
+
+
+
+sudo crontab -u root -e
+
+
+
+add on last line the rule to execute script in an interval
+
+
+
+
+
+*/10   *  *  *  *  /usr/local/bin/monitoring.sh
+
+Check and Stop Crontab
+
+
+
+
+
+sudo systemctl status cron
+
+
+
+sudo systemctl stop cron
+
+
+
+sudo systemctl start cron
+
+UFW - Uncomplicated Firewall
+
+
+
+
+
+check status
+
+
+
+
+
+sudo ufw status numbered
+
+
+
+add new rule
+
+
+
+
+
+sudo ufw allow rule
+
+
+
+delete rule
+
+
+
+
+
+sudo ufw delete rule_number
+
+SSH - Secure Shell
+
+
+
+
+
+check status
+
+
+
+
+
+sudo systemctl status ssh
+
+
+
+configure port
+
+
+
+
+
+sudo nano /etc/ssh/ssh_config
+
+
+
+change line: Port portNumber
+
+
+
+sudo service ssh restart
+
+
+
+check configured port
+
+
+
+
+
+sudo grep Port /etc/ssh/sshd_config
+
+OS Info
+
+
+
+
+
+to show operating system info
+
+
+
+
+
+hostnamectl
+
+Passwd Quality Checking Library
+
+
+
+
+
+installed from apt
+
+
+
+
+
+sudo apt-get install libpam-pwquality
+
+
+
+configure rules
+
+
+
+
+
+sudo nano /etc/pam.d/common-password
+
+
+
+configure Passowrd times
+
+
+
+
+
+sudo nano /etc/login.defs
+
+
+
+flags meaning
+
+
+
+
+
+ucredit     -   char maiusculo
+
+
+
+lcredit    -  char minusculo
+
+
+
+dcredit  - digito
+
+
+
+maxrepeat    - maximum of equal or sequenced chars
+
+
+
+reflect-username     -   can not be equal to the username
+
+
+
+difok = number of characters that can not repeat from last password
+
+
+
+enforce root     -      use those rules also to rule
